@@ -65,11 +65,13 @@ struct VolumeView: View {
                 height: height,
                 alignment: progress > 0 ? .bottom : .top
             )
+            .scaleEffect(x: (0...1).contains(progress) ? 1 : 0.95)
+            .animation(.default, value: (0...1).contains(progress))
         }
     }
     
     private func calculateProgress(height: CGFloat) {
-        let scale = 0.15
+        let scale = 0.05
         let topExcessOffset = height + (offset - height) * scale
         let bottomExcessOffset = offset < 0 ? offset * scale : offset
         progress = (offset > height ? topExcessOffset : bottomExcessOffset) / height
